@@ -1,0 +1,25 @@
+﻿@model IEnumerable<MyExpenseTrackerEntity.Entities.Category>
+
+<h2>Kategori Listesi</h2>
+
+<a class="btn btn-primary mb-3" href="@Url.Action("Create")">+ Yeni Kategori</a>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Ad</th>
+        <th>Tür</th>
+        <th>Varsayılan</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Type</td>
+            <td>@(item.IsDefault ? "Evet" : "Hayır")</td>
+        </tr>
+    }
+    </tbody>
+</table>

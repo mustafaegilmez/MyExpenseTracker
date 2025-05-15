@@ -1,0 +1,49 @@
+﻿@model List<MyExpenseTrackerEntity.DTOs.Category.CategoryListDto>
+@{
+    ViewData["Title"] = "Kategoriler";
+}
+
+<div class="min-h-screen px-4 py-8">
+    <div class="max-w-5xl mx-auto bg-white p-6 rounded shadow">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-indigo-600">Kategoriler</h2>
+            <a asp-action="Create" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded">
+                + Yeni Kategori
+            </a>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full border border-gray-300 divide-y divide-gray-200">
+                <thead class="bg-gray-100 text-left text-sm font-semibold text-gray-700">
+                    <tr>
+                        <th class="px-4 py-2">Ad</th>
+                        <th class="px-4 py-2">Tür</th>
+                        <th class="px-4 py-2">Varsayılan</th>
+                        <th class="px-4 py-2">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody class="text-sm divide-y divide-gray-100">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-2">@item.Name</td>
+                            <td class="px-4 py-2">@item.Type</td>
+                            <td class="px-4 py-2">@(item.IsDefault ? "Evet" : "Hayır")</td>
+                            <td class="px-4 py-2 space-x-2">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="bg-yellow-400 hover:bg-yellow-500 text-white font-medium py-1 px-3 rounded text-xs">
+                                    Düzenle
+                                </a>
+                                <form asp-action="Delete" method="post" class="inline">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" onclick="return confirm('Silmek istediğinize emin misiniz?')" class="bg-red-500 hover:bg-red-600 text-white font-medium py-1 px-3 rounded text-xs">
+                                        Sil
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyExpenseTrackerEntity.Base
 {
-    public class BaseEntity
+    public class BaseEntity : IBaseEntity
     {
         [Key]
-        public virtual int Id { get; set; }
+        public virtual Guid Id { get; set; }
 
         [DisplayName("Oluşturma Tarihi")]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
@@ -14,4 +14,5 @@ namespace MyExpenseTrackerEntity.Base
         [DisplayName("Güncelleme Tarihi")]
         public DateTime? UpdatedDate { get; set; }
     }
+
 }

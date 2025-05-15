@@ -1,0 +1,59 @@
+﻿@model MyExpenseTrackerEntity.DTOs.Transaction.TransactionCreateDto
+
+@{
+    ViewData["Title"] = "İşlem Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="max-w-2xl mx-auto bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold mb-6 text-center text-indigo-600">Yeni İşlem</h2>
+
+    <form asp-action="Create" method="post" class="space-y-5">
+
+        <!-- Tutar -->
+        <div>
+            <label asp-for="Amount" class="block text-sm font-medium text-gray-700"></label>
+            <input asp-for="Amount" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" step="0.01" inputmode="decimal" type="number" lang="en" />
+            <span asp-validation-for="Amount" class="text-red-500 text-sm"></span>
+        </div>
+
+        <!-- Açıklama -->
+        <div>
+            <label asp-for="Description" class="block text-sm font-medium text-gray-700"></label>
+            <textarea asp-for="Description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+            <span asp-validation-for="Description" class="text-red-500 text-sm"></span>
+        </div>
+
+        <!-- Tarih -->
+        <div>
+            <label asp-for="Date" class="block text-sm font-medium text-gray-700"></label>
+            <input asp-for="Date" type="date" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500" />
+            <span asp-validation-for="Date" class="text-red-500 text-sm"></span>
+        </div>
+
+      
+
+        <!-- Kategori -->
+        <div>
+            <label asp-for="CategoryId" class="block text-sm font-medium text-gray-700">Kategori</label>
+            <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
+                <option value="">Seçiniz</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-red-500 text-sm"></span>
+        </div>
+
+        <!-- Butonlar -->
+        <div class="flex justify-between">
+            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded">
+                Kaydet
+            </button>
+            <a asp-action="Index" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 rounded">
+                İptal
+            </a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

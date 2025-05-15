@@ -1,0 +1,106 @@
+﻿@using System.Security.Claims
+@{
+    var isAuthenticated = User.Identity.IsAuthenticated;
+    var fullName = isAuthenticated ? User.Identity.Name : null;
+    var isAdmin = isAuthenticated && User.IsInRole("Admin");
+    Layout = null;
+}
+
+
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MyExpenseTracker</title>
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts ve ikonlar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .feature-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+
+        .cta-button {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+            .cta-button:hover {
+                transform: translateY(-2px);
+            }
+    </style>
+</head>
+<body class="text-gray-800">
+
+<!-- ✅Navbar -->
+<nav class="bg-gray-900 text-white py-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center px-4">
+        <a href="/" class="text-xl font-semibold">💰 MyExpenseTracker</a>
+
+        <div class="space-x-4 hidden md:flex">
+            @if (isAuthenticated)
+            {
+                <a href="/Category" class="hover:text-indigo-400">Kategoriler</a>
+                <a href="/Transaction" class="hover:text-indigo-400">İşlemler</a>
+
+                @if (isAdmin)
+                {
+                    <a href="/User" class="hover:text-indigo-400">Kullanıcılar</a>
+                }
+
+                <a href="/Account/Profile" class="hover:text-indigo-400">Profilim</a>
+                <a href="/Account/Logout" class="hover:text-red-400">Çıkış Yap</a>
+            }
+            else
+            {
+                <a href="/Account/Login" class="hover:text-indigo-400">Giriş Yap</a>
+                <a href="/Account/Register" class="hover:text-indigo-400">Kayıt Ol</a>
+            }
+        </div>
+
+        <div class="text-sm hidden md:block">
+            @DateTime.Now.ToShortDateString()
+        </div>
+    </div>
+</nav>
+
+
+
+
+    <main class="min-h-screen">
+        @RenderBody()
+    </main>
+
+    <!--  Footer -->
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-6 text-center">
+            <p>
+                &copy; @DateTime.Now.Year MyExpenseTracker. Tüm hakları saklıdır.
+            </p>
+            <p class="text-sm text-white-400 mt-2">
+                <a href="/Home/Privacy" class="hover:underline">Gizlilik</a>
+            </p>
+        </div>
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

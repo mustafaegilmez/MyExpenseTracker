@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MyExpenseTrackerEntity.Entities.Transaction>
+
+@{
+    ViewData["Title"] = "İşlem Listesi";
+}
+
+<h2>İşlem Listesi</h2>
+
+<a class="btn btn-primary mb-3" href="@Url.Action("Create")">+ Yeni İşlem</a>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Tutar</th>
+        <th>Açıklama</th>
+        <th>Tarih</th>
+        <th>Kategori ID</th>
+        <th>Kullanıcı ID</th>
+        <th>İşlem</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var t in Model)
+    {
+        <tr>
+            <td>@t.Amount ₺</td>
+            <td>@t.Description</td>
+            <td>@t.Date.ToShortDateString()</td>
+            <td>@t.CategoryId</td>
+            <td>@t.UserId</td>
+            <td>
+                <a class="btn btn-sm btn-warning" href="@Url.Action("Edit", new { id = t.Id })">Düzenle</a>
+                <form asp-action="Delete" asp-route-id="@t.Id" method="post" style="display:inline;">
+                    <button class="btn btn-sm btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz?')">Sil</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

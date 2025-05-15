@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyExpenseTrackerEntity.Base
+namespace MyExpenseTrackerEntity.Enums
 {
-    internal class DbContext
+    public enum TransactionType
     {
+        Gelir = 1,
+        Gider = 2
     }
 }
